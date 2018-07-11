@@ -72,6 +72,8 @@ class SSHOperator(BaseOperator):
                 self.ssh_hook.remote_host = self.remote_host
 
             ssh_client = self.ssh_hook.get_conn()
+            if not ssh_client:
+                raise AirflowException("problem connecting to ssh host")
 
             if not self.command:
                 raise AirflowException("no command specified so nothing to execute here.")
